@@ -16,7 +16,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-lg p-4 flex items-center justify-between h-16">
+    <header className=" top-0 left-0 right-0 z-40 bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-lg p-4 flex items-center justify-between h-16">
       {/* Left side: Logo/Brand Name */}
       <div className="flex items-center">
         <span

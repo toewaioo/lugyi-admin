@@ -23,6 +23,9 @@ const ContentListPage = () => {
       }
     }
   };
+  const sortedContents = [...contents].sort(
+    (a, b) => new Date(b.created_at) - new Date(a.created_at)
+  );
 
   if (loading && contents.length === 0) {
     return <div className="text-center p-6">Loading contents...</div>;
@@ -87,7 +90,7 @@ const ContentListPage = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {contents.map((content) => (
+              {sortedContents.map((content) => (
                 <tr key={content.id}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
