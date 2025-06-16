@@ -1,8 +1,8 @@
 // src/components/Layout/Header.jsx
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../../features/auth/redux/authActions'; // Assuming you have this action
-import { useNavigate } from 'react-router';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../features/auth/redux/authActions"; // Assuming you have this action
+import { useNavigate } from "react-router";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -11,15 +11,18 @@ const Header = () => {
   const user = useSelector((state) => state.auth.user);
 
   const handleLogout = () => {
-    dispatch(logoutUser());
-    navigate('/login'); // Redirect to login page after logout
+    dispatch(logout());
+    navigate("/login"); // Redirect to login page after logout
   };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-lg p-4 flex items-center justify-between h-16">
       {/* Left side: Logo/Brand Name */}
       <div className="flex items-center">
-        <span className="text-2xl font-extrabold tracking-tight cursor-pointer hover:text-blue-300 transition-colors duration-200" onClick={() => navigate('/')}>
+        <span
+          className="text-2xl font-extrabold tracking-tight cursor-pointer hover:text-blue-300 transition-colors duration-200"
+          onClick={() => navigate("/")}
+        >
           AdminPanel
         </span>
       </div>
@@ -28,7 +31,7 @@ const Header = () => {
       <div className="flex items-center space-x-4">
         {user && (
           <span className="text-sm font-medium text-gray-300 hidden md:inline">
-            Welcome, {user.name || user.email || 'Admin'}!
+            Welcome, {user.name || user.email || "Admin"}!
           </span>
         )}
         <button
