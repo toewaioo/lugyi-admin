@@ -9,10 +9,10 @@ import {
 } from "./authConstants";
 
 const initialState = {
-  accessToken: localStorage.getItem('access_token') || null,
-  refreshToken: localStorage.getItem('refresh_token') || null,
-  isAuthenticated: !!localStorage.getItem('access_token'), // Check if access token exists to determine authentication status
-  user:  JSON.parse(localStorage.getItem('userInfo')) || null, // To store user information
+  accessToken: localStorage.getItem("access_token") || null,
+  refreshToken: localStorage.getItem("refresh_token") || null,
+  isAuthenticated: !!localStorage.getItem("access_token"), // Check if access token exists to determine authentication status
+  user: JSON.parse(localStorage.getItem("user_info")) || null, // To store user information
   loading: false,
   error: null,
 };
@@ -26,7 +26,10 @@ const authReducer = (state = initialState, action) => {
         error: null,
       };
     case LOGIN_SUCCESS:
-      console.log("Login successful, updating state with tokens and user info:", action.payload);
+      console.log(
+        "Login successful, updating state with tokens and user info:",
+        action.payload
+      );
       return {
         ...state,
         loading: false,

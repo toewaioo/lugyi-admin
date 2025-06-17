@@ -1,22 +1,17 @@
-// src/components/common/Sidebar.jsx
-import React, { useState } from "react";
-import { Link } from "react-router"; // Example icons
-import MenuIcon from "../../icons/MenuIcon";
+import React from "react"; // No useState needed here if state is lifted
+import { Link } from "react-router"; // Use react-router-dom Link if you are using it
 import HomeIcon from "../../icons/HomeIcon";
 import PersonIcon from "../../icons/PersonIcon";
 import ContentIcon from "../../icons/ContnentIcon";
-const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+import KeyIcon from "../../icons/Key";
 
+// Removed MenuIcon import as it's now in Header
+
+const Sidebar = ({ isOpen, setIsOpen }) => {
+  // Accept isOpen and setIsOpen as props
   return (
     <>
-      {/* Mobile Menu Button */}
-      <button
-        className="md:hidden fixed top-4 left-4 z-50 p-2 text-white bg-gray-700 rounded-md"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-       <MenuIcon/>
-      </button>
+      {/* Mobile Menu Button - Removed from here */}
 
       {/* Sidebar */}
       <aside
@@ -36,16 +31,17 @@ const Sidebar = () => {
                 className="flex items-center px-4 py-2 rounded-md hover:bg-gray-700"
                 onClick={() => setIsOpen(false)} // Close on navigation for mobile
               >
-                <HomeIcon/> Dashboard
+                <HomeIcon /> <span className="ml-2">Dashboard</span>
               </Link>
             </li>
             <li className="mb-2">
               <Link
-                to="/users"
-                className="flex items-center px-4 py-2 rounded-md hover:bg-gray-700"
+                to="/devices"
+                className="flex items-center px-4 py-2 pr-2 rounded-md hover:bg-gray-700"
                 onClick={() => setIsOpen(false)}
               >
-                <PersonIcon/>Users
+                <PersonIcon className="pr-21 mr-5" />
+                <span className="ml-2">Devices</span>
               </Link>
             </li>
             <li className="mb-2">
@@ -54,7 +50,16 @@ const Sidebar = () => {
                 className="flex items-center px-4 py-2 rounded-md hover:bg-gray-700"
                 onClick={() => setIsOpen(false)}
               >
-                <ContentIcon/> Contents
+                <ContentIcon />  <span className="ml-2">Contents</span>
+              </Link>
+            </li>
+            <li className="mb-2">
+              <Link
+                to="/subscriptions"
+                className="flex items-center px-4 py-2 rounded-md hover:bg-gray-700"
+                onClick={() => setIsOpen(false)}
+              >
+                <KeyIcon /> <span className="ml-2">Subscriptions</span>
               </Link>
             </li>
             {/* Add more navigation links */}

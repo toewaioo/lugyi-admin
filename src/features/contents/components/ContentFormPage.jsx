@@ -7,7 +7,7 @@ import {
   fetchContentById,
   updateExistingContent,
 } from "../redux/contentActions";
-import useImageValidator from "../../../hook/useImageValidator"
+import useImageValidator from "../../../hook/useImageValidator";
 // --- Step 1: Basic Information ---
 const StepBasicInfo = ({
   formData,
@@ -180,7 +180,7 @@ const ProfileImgPreview = ({ url }) => {
   const { isValid, isLoading, error } = useImageValidator(url);
 
   if (!url) return null;
-  
+
   if (isLoading) {
     return (
       <div className="mt-2 p-2 border border-gray-200 rounded-md bg-gray-50 text-center">
@@ -192,9 +192,7 @@ const ProfileImgPreview = ({ url }) => {
   if (!isValid) {
     return (
       <div className="mt-2 p-2 border border-red-200 rounded-md bg-red-50 text-center">
-        <p className="text-sm text-red-600">
-          {error || 'Invalid image URL'}
-        </p>
+        <p className="text-sm text-red-600">{error || "Invalid image URL"}</p>
       </div>
     );
   }
@@ -206,19 +204,19 @@ const ProfileImgPreview = ({ url }) => {
         src={url}
         alt="Profile Preview"
         className="max-w-full h-auto max-h-48 object-contain mx-auto rounded-md"
-        onError={(e) => { 
-          e.target.src = 'https://via.placeholder.com/150?text=Invalid+Image';
+        onError={(e) => {
+          e.target.src = "https://via.placeholder.com/150?text=Invalid+Image";
         }}
       />
     </div>
   );
-};  
+};
 // In StepMediaAndFiles component
 const CoverImgPreview = ({ url }) => {
   const { isValid, isLoading, error } = useImageValidator(url);
 
   if (!url) return null;
-  
+
   if (isLoading) {
     return (
       <div className="mt-2 p-2 border border-gray-200 rounded-md bg-gray-50 text-center">
@@ -230,9 +228,7 @@ const CoverImgPreview = ({ url }) => {
   if (!isValid) {
     return (
       <div className="mt-2 p-2 border border-red-200 rounded-md bg-red-50 text-center">
-        <p className="text-sm text-red-600">
-          {error || 'Invalid image URL'}
-        </p>
+        <p className="text-sm text-red-600">{error || "Invalid image URL"}</p>
       </div>
     );
   }
@@ -244,8 +240,9 @@ const CoverImgPreview = ({ url }) => {
         src={url}
         alt="Cover Preview"
         className="max-w-full h-auto max-h-48 object-contain mx-auto rounded-md"
-        onError={(e) => { 
-          e.target.src = 'https://via.placeholder.com/300x150?text=Invalid+Image';
+        onError={(e) => {
+          e.target.src =
+            "https://via.placeholder.com/300x150?text=Invalid+Image";
         }}
       />
     </div>
@@ -260,8 +257,6 @@ const StepMediaAndFiles = ({
   removeFileEntry,
   formErrors,
 }) => (
-
-  
   <div className="space-y-6">
     <h2 className="text-xl font-semibold text-gray-800 mb-4">
       Step 2: Media and Files
@@ -291,7 +286,7 @@ const StepMediaAndFiles = ({
             {formErrors.profileImg}
           </p>
         )}
-       {formData.profileImg && <ProfileImgPreview url={formData.profileImg} />}
+        {formData.profileImg && <ProfileImgPreview url={formData.profileImg} />}
       </div>
       <div>
         <label
@@ -471,23 +466,21 @@ const StepMediaAndFiles = ({
         Add Stream File
       </button>
       {formErrors.stream && (
-      <p className="text-red-500 text-xs italic mt-1">{formErrors.stream}</p>
-    )}
-    {formData.files.stream.map(
-      (file, index) =>
-        formErrors[`streamUrl${index}`] && (
-          <p
-            key={`error-${index}`}
-            className="text-red-500 text-xs italic mt-1"
-          >
-            {formErrors[`streamUrl${index}`]}
-          </p>
-        )
-    )}
+        <p className="text-red-500 text-xs italic mt-1">{formErrors.stream}</p>
+      )}
+      {formData.files.stream.map(
+        (file, index) =>
+          formErrors[`streamUrl${index}`] && (
+            <p
+              key={`error-${index}`}
+              className="text-red-500 text-xs italic mt-1"
+            >
+              {formErrors[`streamUrl${index}`]}
+            </p>
+          )
+      )}
     </div>
-   
   </div>
-  
 );
 
 // --- Step 3: Advanced Details (Casts, Links, VIP) ---
@@ -528,19 +521,19 @@ const StepAdvancedDetails = ({
         Casts
       </label>
       {formData.casts.map((cast, index) => (
-        <div key={index} className="flex space-x-2 mb-2">
+        <div key={index} className="flex space-x-2 mb-2 items-end">
           <input
             type="text"
             value={cast.name}
             onChange={(e) => handleCastChange(index, "name", e.target.value)}
-            className="block flex-1 border border-gray-300 rounded-md shadow-sm p-2"
+            className="block w-full flex-1 border border-gray-300 rounded-md shadow-sm p-2"
             placeholder="Actor Name"
           />
           <input
             type="text"
             value={cast.role}
             onChange={(e) => handleCastChange(index, "role", e.target.value)}
-            className="block flex-1 border border-gray-300 rounded-md shadow-sm p-2"
+            className="block w-full flex-1 border border-gray-300 rounded-md shadow-sm p-2"
             placeholder="Role (e.g., Actor, Director)"
           />
           <button
@@ -672,25 +665,30 @@ const ContentFormPage = () => {
     (state) => state.contents
   );
   const parsedContent = useMemo(() => {
-      if (!selectedContent || !selectedContent.content) return null;
-  
-      const contentData = selectedContent.content;
-  
-      try {
-        return {
-          ...contentData,
-          casts: contentData.casts ? JSON.parse(contentData.casts) : [],
-          files: { // Ensures files object and its nested properties are always present
-              trailer: selectedContent.content.files?.trailer || { url: '', quality: '', size: '' },
-              stream: selectedContent.content.files?.stream || [],
-              download: selectedContent.content.files?.download || [],
-            }
-        };
-      } catch (parseError) {
-        console.error("Error parsing content data:", parseError);
-        return null; // Handle parsing errors gracefully
-      }
-    }, [selectedContent]);
+    if (!selectedContent || !selectedContent.content) return null;
+
+    const contentData = selectedContent.content;
+
+    try {
+      return {
+        ...contentData,
+        casts: contentData.casts || [],
+        files: {
+          // Ensures files object and its nested properties are always present
+          trailer: selectedContent.content.files?.trailer || {
+            url: "",
+            quality: "",
+            size: "",
+          },
+          stream: selectedContent.content.files?.stream || [],
+          download: selectedContent.content.files?.download || [],
+        },
+      };
+    } catch (parseError) {
+      console.error("Error parsing content data:", parseError);
+      return null; // Handle parsing errors gracefully
+    }
+  }, [selectedContent]);
 
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -941,6 +939,17 @@ const ContentFormPage = () => {
           }
         });
       }
+    } else if (step === 4) {
+      setFormErrors((prev) => ({ ...prev, ...errors }));
+
+      isValid = Object.keys(errors).length === 0;
+      return isValid;
+    }
+    if (currentStep == 3 && contentId) {
+      //for update content, we can skip validation for optional fields
+      //contentId is present, so we can assume the content already exists
+      setCurrentStep(currentStep + 1);
+      return false;
     }
 
     // Step 3 has optional fields, so it might always return true unless you add more requirements
@@ -1001,6 +1010,7 @@ const ContentFormPage = () => {
   }
 
   const renderStep = () => {
+    console.log("Current Step:", currentStep);
     switch (currentStep) {
       case 1:
         return (
@@ -1024,6 +1034,20 @@ const ContentFormPage = () => {
           />
         );
       case 3:
+        return (
+          <StepAdvancedDetails
+            formData={formData}
+            handleChange={handleChange}
+            handleArrayChange={handleArrayChange}
+            handleCastChange={handleCastChange}
+            addCast={addCast}
+            removeCast={removeCast}
+            addFileEntry={addFileEntry}
+            removeFileEntry={removeFileEntry}
+            handleFileArrayChange={handleFileArrayChange}
+          />
+        );
+      case 4:
         return (
           <StepAdvancedDetails
             formData={formData}
@@ -1101,6 +1125,15 @@ const ContentFormPage = () => {
 
         {/* Navigation Buttons */}
         <div className="flex justify-between mt-8">
+          {currentStep == 1 && (
+            <button
+              type="button"
+              onClick={() => navigate("/contents")}
+              className="px-6 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Cancel
+            </button>
+          )}
           {currentStep > 1 && (
             <button
               type="button"

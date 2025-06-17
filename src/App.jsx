@@ -15,6 +15,11 @@ import NotFoundPage from "./pages/NotFoundPage";
 import Header from "./components/common/Header";
 import Sidebar from "./components/common/Sidebar";
 import ContentDetailsPage from "./features/contents/components/ContentDetailsPage";
+import Layout from "./components/common/Layout";
+import DeviceListPage from "./features/device/components/DeviceListPage";
+import DeviceDetailsPage from "./features/device/components/DeviceDetailPage";
+import DeviceFormPage from "./features/device/components/DeviceFormPage";
+import SubscriptionListPage from "./features/subscription/component/SubscriptionListPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,35 +31,36 @@ const App = () => {
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
-        <Header />
-        <div className="flex flex-1">
-          <Sidebar />
-          <main className="flex-1 p-4 bg-gray-50 overflow-auto">
-            <Routes>
-              <Route path="/login" element={<LoginPage />} />
-
-              {/* Protected Routes */}
-              <Route element={<AuthGuard />}>
-                <Route path="/dashboard" element={<DashboardPage />} />
-                {/* <Route path="/users" element={<UserListPage />} />
+        <Layout>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            {/* Protected Routes */}
+            <Route element={<AuthGuard />}>
+              <Route path="/dashboard" element={<DashboardPage />} />
+              {/* <Route path="/users" element={<UserListPage />} />
                 <Route path="/users/new" element={<UserFormPage />} />
                 <Route path="/users/edit/:id" element={<UserFormPage />} /> */}
-                <Route path="/contents" element={<ContentListPage />} />
-                <Route path="/contents/new" element={<ContentFormPage />} />
-                <Route path="/contents/details/:id" element={<ContentDetailsPage />} />
-                <Route
-                  path="/contents/edit/:id"
-                  element={<ContentFormPage />}
-                />
-                {/* Add more protected routes */}
-                <Route path="/" element={<DashboardPage />} />{" "}
-                {/* Default protected route */}
-              </Route>
-
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </main>
-        </div>
+              <Route path="/subscriptions" element={<SubscriptionListPage />} />
+              <Route path="/contents" element={<ContentListPage />} />
+              <Route path="/contents/new" element={<ContentFormPage />} />
+              <Route
+                path="/contents/details/:id"
+                element={<ContentDetailsPage />}
+              />
+              <Route path="/contents/edit/:id" element={<ContentFormPage />} />
+              {/* Add more protected routes */}
+              <Route path="/" element={<DashboardPage />} />{" "}
+              <Route path="devices" element={<DeviceListPage />} />
+              <Route path="devices/edit/:id" element={<DeviceFormPage />} />
+              <Route
+                path="devices/details/:id"
+                element={<DeviceDetailsPage />}
+              />
+              {/* Default protected route */}
+            </Route>
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Layout>
       </div>
     </Router>
   );

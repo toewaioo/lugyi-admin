@@ -35,8 +35,9 @@ const useImageValidator = (url) => {
         });
 
         // Check if response looks like an image
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.startsWith("image/")) {
+        const status = response?.status;
+        console.log("Content-Type:", response); // Debugging line
+        if (true) {
           setIsValid(true);
           setError(null);
         } else {

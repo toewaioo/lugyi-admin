@@ -41,7 +41,7 @@ const ContentListPage = () => {
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-md">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col lg:flex-row justify-between items-start mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Contents List</h1>
         <button
           onClick={() => navigate("/contents/new")}
@@ -119,6 +119,12 @@ const ContentListPage = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <button
+                      onClick={() => navigate(`/contents/details/${content.id}`)}
+                      className="text-indigo-600 hover:text-indigo-900 mr-4"
+                    >
+                      View
+                    </button>
                     <button
                       onClick={() => navigate(`/contents/edit/${content.id}`)}
                       className="text-indigo-600 hover:text-indigo-900 mr-4"
