@@ -14,9 +14,11 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useNavigate } from "react-router";
 
 const DashboardPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { data, timeRange, loading, error } = useSelector(
     (state) => state.dashboard
   );
@@ -233,8 +235,8 @@ const DashboardPage = () => {
                   Views: {item.views_count || 0}
                 </p>
                 <a
-                  href={`/contents/details/${item.id}`}
-                  className="mt-2 inline-block text-blue-600 hover:underline text-sm"
+                  onClick={() => navigate(`/contents/details/${item.id}`)}
+                  className="mt-2 inline-block text-blue-600 cursor-pointer text-sm "
                 >
                   View Details &rarr;
                 </a>

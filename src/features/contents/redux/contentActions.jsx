@@ -48,7 +48,7 @@ export const fetchContents = () => async (dispatch) => {
     const data = await getContents();
     dispatch({
       type: GET_CONTENTS_SUCCESS,
-      payload: data,
+      payload: data.data,
     });
   } catch (error) {
     dispatch({
